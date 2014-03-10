@@ -1,0 +1,33 @@
+doctype xml
+rss(xmlns:itunes='http://www.itunes.com/dtds/podcast-1.0.dtd', version='2.0')
+	channel
+		title
+			| Tube Feed
+		link= config.hostname
+		language en-us
+		itunes:subtitle Brett Jones's Youtube Feed
+		itunes:author Brett Jones
+		itunes:summary
+		description
+		itunes:owner
+			itunes:name Brett Jones
+			itunes:email
+		//- itunes:category(text='Education')
+		//-   itunes:category(text='Language Courses')
+		//- itunes:category(text='Education')
+		//-   itunes:category(text='Higher Education')
+		//- itunes:category(text='Arts')
+		//-   itunes:category(text='Literature')
+		itunes:explicit no
+		each item in items
+			item
+				title= item.title
+				itunes:image(href='#{item.thumbnail}')
+				itunes:subtitle= item.stitle
+				itunes:summary= item.desc
+				enclosure(url='#{config.hostname}/stream/#{item.path}', length='#{item.duration}', type='audio/mpeg')
+				guid
+					| #{item.id}
+				pubdate= new Date(item.published)
+				itunes:explicit no
+				itunes:duration= item.durationFmt
