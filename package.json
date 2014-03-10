@@ -21,6 +21,7 @@
     "jade": "~1.1.0",
     "moment": "~2.5.1",
     "glob": "~3.2.9",
-    "apicache": "https://github.com/brettof86/apicache/archive/master.tar.gz"
+    "apicache": "https://github.com/brettof86/apicache/archive/master.tar.gz",
+    "send": "~0.2.0"
   }
 }
