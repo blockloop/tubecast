@@ -9,10 +9,12 @@ var express = require('express'),
 	send = require('send'),
 	Url = require('url');
 
+var xmlContentType = 'application/rss+xml,application/rdf+xml,application/atom+xml,application/xml,text/xml';
+
 var cache = require('apicache').options({
 	debug: true,
 	headers: {
-		'Content-Type': 'application/rss+xml,application/rdf+xml,application/atom+xml,application/xml,text/xml'
+		'Content-Type': xmlContentType
 	}
 }).middleware;
 
@@ -40,17 +42,18 @@ app.get('/rss', cache("2 hours"), function(req, res) {
 				published: moment(info.upload_date, "YYYYMMDD").toDate(),
 				id: info.id,
 				path: file.replace(Config.media+'/', ''),
+				thumbnail: info.thumbnail, 
 				title: info.fulltitle,
 				stitle: info.stitle,
 				desc: info.description,
 				duration: info.duration,
-				durationFmt: moment().startOf('day').add('seconds', info.duration).format('HH:mm:ss')
+				durationFmt: moment(0).add('seconds', info.duration).format('HH:mm:ss')
 			};
 		}),
 		config: Config
 	};
 
-	res.setHeader('Content-Type', 'application/rss+xml,application/rdf+xml,application/atom+xml,application/xml,text/xml');
+	res.setHeader('Content-Type', xmlContentType);
     res.render('rss', data);
 
 });
